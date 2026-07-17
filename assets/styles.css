@@ -1228,3 +1228,144 @@ p { max-width: 65ch; }
 @media print {
   .whatsapp-fab { display: none; }
 }
+
+/* =========================================================
+   THEME PREVIEW VARIANTS  (temporary — remove after choosing)
+   Dark themes: the MAIN page background becomes navy / burgundy
+   and text becomes light. The gold accent is kept. Toggle via
+   the on-page switcher (see script.js).
+   ========================================================= */
+html[data-theme="bleumarin1"] {           /* Bleumarin — navy clasic */
+  --color-bg: #13233f;
+  --color-bg-dim: #0d1a31;
+  --color-bg-card: #1c2e4e;
+  --color-ink: #ece7dd;
+  --color-ink-muted: #aab3c5;
+  --color-ink-soft: #7d879c;
+  --color-primary: #ece7dd;
+  --color-primary-dark: #ffffff;
+  --color-primary-soft: #cdd3df;
+  --color-accent: #c99a54;
+  --color-line: rgba(236, 231, 221, 0.15);
+  --color-line-soft: rgba(236, 231, 221, 0.07);
+  --header-bg: rgba(15, 26, 49, 0.82);
+}
+html[data-theme="bleumarin2"] {           /* Bleumarin — albastru nocturn */
+  --color-bg: #172a55;
+  --color-bg-dim: #101f42;
+  --color-bg-card: #21386c;
+  --color-ink: #ece9e2;
+  --color-ink-muted: #b2bad0;
+  --color-ink-soft: #8089a6;
+  --color-primary: #ece9e2;
+  --color-primary-dark: #ffffff;
+  --color-primary-soft: #cfd5e6;
+  --color-accent: #cb9c55;
+  --color-line: rgba(236, 233, 226, 0.15);
+  --color-line-soft: rgba(236, 233, 226, 0.07);
+  --header-bg: rgba(16, 31, 66, 0.82);
+}
+html[data-theme="visiniu1"] {             /* Vișiniu — bordeaux profund */
+  --color-bg: #2c1219;
+  --color-bg-dim: #200c12;
+  --color-bg-card: #3b1b23;
+  --color-ink: #f0e6e2;
+  --color-ink-muted: #cbb0b4;
+  --color-ink-soft: #a08388;
+  --color-primary: #f0e6e2;
+  --color-primary-dark: #ffffff;
+  --color-primary-soft: #e0c9cd;
+  --color-accent: #c99a54;
+  --color-line: rgba(240, 230, 226, 0.14);
+  --color-line-soft: rgba(240, 230, 226, 0.07);
+  --header-bg: rgba(32, 12, 18, 0.82);
+}
+html[data-theme="visiniu2"] {             /* Vișiniu — vișiniu cald */
+  --color-bg: #3a1620;
+  --color-bg-dim: #2a0f17;
+  --color-bg-card: #4a232d;
+  --color-ink: #f1e7e3;
+  --color-ink-muted: #d1b6bb;
+  --color-ink-soft: #a98a90;
+  --color-primary: #f1e7e3;
+  --color-primary-dark: #ffffff;
+  --color-primary-soft: #e4cdd1;
+  --color-accent: #cf9f57;
+  --color-line: rgba(241, 231, 227, 0.14);
+  --color-line-soft: rgba(241, 231, 227, 0.07);
+  --header-bg: rgba(42, 15, 23, 0.82);
+}
+html[data-theme="visiniumediu"] {         /* Vișiniu mediu (între închis și deschis) */
+  --color-bg: #732d3a;
+  --color-bg-dim: #5e2430;
+  --color-bg-card: #843c49;
+  --color-ink: #f4e9e6;
+  --color-ink-muted: #ddc3c7;
+  --color-ink-soft: #ba989e;
+  --color-primary: #f4e9e6;
+  --color-primary-dark: #ffffff;
+  --color-primary-soft: #e7ced2;
+  --color-accent: #d7a860;
+  --color-line: rgba(244, 233, 230, 0.16);
+  --color-line-soft: rgba(244, 233, 230, 0.08);
+  --header-bg: rgba(94, 36, 48, 0.85);
+}
+
+/* --- Light tinted themes (dark text on a light colored background) --- */
+html[data-theme="bleumarinlight"] {       /* Bleumarin deschis */
+  --color-bg: #e9eef5;
+  --color-bg-dim: #dbe3ee;
+  --color-bg-card: #f5f8fc;
+  --color-primary: #1b2a4a;
+  --color-primary-dark: #111d33;
+  --color-primary-soft: #2a3f68;
+  --color-line: rgba(27, 42, 74, 0.13);
+  --color-line-soft: rgba(27, 42, 74, 0.06);
+  --header-bg: rgba(233, 238, 245, 0.85);
+}
+html[data-theme="albastrupraf"] {         /* Bleumarin praf (mai saturat) */
+  --color-bg: #d9e2ee;
+  --color-bg-dim: #c9d5e6;
+  --color-bg-card: #eaf0f7;
+  --color-primary: #22385c;
+  --color-primary-dark: #16273f;
+  --color-primary-soft: #33507a;
+  --color-line: rgba(34, 56, 92, 0.14);
+  --color-line-soft: rgba(34, 56, 92, 0.07);
+  --header-bg: rgba(217, 226, 238, 0.85);
+}
+html[data-theme="visiniulight"] {         /* Vișiniu deschis (blush) */
+  --color-bg: #f4ecea;
+  --color-bg-dim: #ecdcd9;
+  --color-bg-card: #fbf5f4;
+  --color-primary: #5c2130;
+  --color-primary-dark: #431722;
+  --color-primary-soft: #7a3040;
+  --color-line: rgba(92, 33, 48, 0.13);
+  --color-line-soft: rgba(92, 33, 48, 0.06);
+  --header-bg: rgba(244, 236, 234, 0.85);
+}
+
+/* --- Header tint: adapts to every variant (light or dark) --- */
+html[data-theme] .site-header { background: var(--header-bg); }
+
+/* --- Surface/text fixes needed ONLY for dark-background themes --- */
+html[data-mode="dark"] .site-footer,
+html[data-mode="dark"] .cta-strip,
+html[data-mode="dark"] .service-card.service-cta,
+html[data-mode="dark"] .service-card.service-cta:hover { background: var(--color-bg-dim); }
+
+html[data-mode="dark"] .hero-portrait,
+html[data-mode="dark"] .about-image { background: var(--color-bg-card); }
+
+/* CTA strip text was designed light-on-dark using --color-bg; flip to ink */
+html[data-mode="dark"] .cta-strip,
+html[data-mode="dark"] .cta-strip h2 { color: var(--color-ink); }
+html[data-mode="dark"] .cta-strip p { color: var(--color-ink-muted); }
+html[data-mode="dark"] .cta-strip .btn-primary { color: var(--color-bg); }
+
+/* Service CTA tile text */
+html[data-mode="dark"] .service-card.service-cta h3 { color: var(--color-ink); }
+html[data-mode="dark"] .service-card.service-cta p { color: var(--color-ink-muted); }
+html[data-mode="dark"] .service-card.service-cta .service-num,
+html[data-mode="dark"] .service-card.service-cta .service-link { color: var(--color-accent); }
