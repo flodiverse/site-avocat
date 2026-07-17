@@ -532,6 +532,7 @@ p { max-width: 65ch; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
 }
 
 .hero-decoration {
@@ -694,8 +695,19 @@ p { max-width: 65ch; }
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
   background:
     radial-gradient(ellipse at top, rgba(176, 135, 73, 0.2), transparent 60%);
+}
+
+.about-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .about-content > * + * { margin-top: var(--space-md); }
