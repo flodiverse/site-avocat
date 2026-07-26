@@ -112,7 +112,7 @@
 
             <div class="contact-block">
               <div class="label">WhatsApp</div>
-              <a href="https://wa.me/40723176164?text=Bun%C4%83%20ziua%2C%20a%C8%99%20dori%20s%C4%83%20programez%20o%20consulta%C8%9Bie."
+              <a href="https://wa.me/40785117334?text=Bun%C4%83%20ziua%2C%20a%C8%99%20dori%20s%C4%83%20programez%20o%20consulta%C8%9Bie."
                  class="value contact-whatsapp"
                  target="_blank"
                  rel="noopener">
@@ -155,8 +155,11 @@
             </div>
           </div>
 
-          <!-- Form: configure action with your Formspree URL (see README) -->
-          <form class="form-card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <!-- Web3Forms — înlocuiește value din access_key cu cheia ta reală de pe web3forms.com -->
+          <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="432f5c0a-cedd-4cec-9c40-104bd366f167" />
+            <input type="hidden" name="subject" value="Solicitare consultație — site Av. Irina-Maria Peter" />
+            <input type="hidden" name="from_name" value="Site Av. Irina-Maria Peter" />
             <h2 style="margin-bottom:0.5rem">Solicitați o consultație</h2>
             <p style="color:var(--color-ink-muted); margin-bottom:1.75rem; font-size:0.9375rem">
               Completați câmpurile de mai jos. Toate informațiile sunt confidențiale.
@@ -175,12 +178,12 @@
 
             <div class="form-field">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" required autocomplete="email" />
+              <input type="email" id="email" name="email" autocomplete="email" />
             </div>
 
             <div class="form-field">
               <label for="domeniu">Domeniu de interes</label>
-              <select id="domeniu" name="practice_area">
+              <select id="domeniu" name="practice_area" required>
                 <option value="">— Selectați —</option>
                 <option>Drept european (CEDO)</option>
                 <option>Drept civil</option>
@@ -195,20 +198,21 @@
 
             <div class="form-field">
               <label for="mesaj">Descrieți pe scurt situația</label>
-              <textarea id="mesaj" name="message" rows="5" required placeholder="Câteva detalii ne ajută să pregătim consultația..."></textarea>
+              <textarea id="mesaj" name="message" rows="5" required minlength="15" placeholder="Câteva detalii ne ajută să pregătim consultația..."></textarea>
             </div>
 
-            <!-- Honeypot for spam -->
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+            <!-- Honeypot anti-spam (Web3Forms) -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+
+            <label class="form-consent">
+              <input type="checkbox" name="consent" required />
+              <span>Sunt de acord cu prelucrarea datelor cu caracter personal în scopul oferirii unui răspuns la solicitarea mea.</span>
+            </label>
 
             <button type="submit" class="btn btn-primary btn-arrow" style="width:100%; justify-content:center">
               Trimite cererea
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-
-            <p class="form-note">
-              Prin trimiterea formularului confirmați acordul privind procesarea datelor în scopul oferirii unui răspuns la solicitare.
-            </p>
           </form>
 
         </div>

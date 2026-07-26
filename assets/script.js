@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  const WHATSAPP_NUMBER = '40723176164';
+  const WHATSAPP_NUMBER = '40785117334';
 
   // ---- Mobile nav toggle ----
   const toggle = document.querySelector('.nav-toggle');
@@ -80,4 +80,147 @@
   }
 
   injectWhatsAppFab();
+
+  // ---- Toast notification (top-right, auto-dismiss) ----
+  function showToast(kind, title, msg) {
+    var toast = document.createElement('div');
+    toast.className = 'toast' + (kind === 'error' ? ' toast-error' : '');
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    var icon = kind === 'error'
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 7.5v5.5M12 16.5h.01"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9"/></svg>';
+    toast.innerHTML =
+      '<span class="toast-icon" aria-hidden="true">' + icon + '</span>' +
+      '<div class="toast-body">' +
+        '<div class="toast-title">' + title + '</div>' +
+        '<div class="toast-msg">' + msg + '</div>' +
+      '</div>';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { toast.classList.add('toast-show'); });
+    });
+    setTimeout(function () {
+      toast.classList.remove('toast-show');
+      setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 600);
+    }, 5000);
+  }
+
+  // ---- Contact form (Web3Forms) — AJAX submit + toast ----
+  function initContactForm() {
+    var form = document.querySelector('form.form-card[action*="web3forms"]');
+    if (!form) return;
+
+    var isEnglish = (document.documentElement.lang || '').toLowerCase().startsWith('en');
+    var t = isEnglish
+      ? {
+          sending: 'Sending…',
+          okTitle: 'Thank you!',
+          okMsg: 'Your request has been received — I will get back to you shortly.',
+          errTitle: 'Oops!',
+          errMsg: 'Something went wrong. Please try again, or email us directly.'
+        }
+      : {
+          sending: 'Se trimite…',
+          okTitle: 'Mulțumim!',
+          okMsg: 'Am primit solicitarea și vă răspund în cel mai scurt timp.',
+          errTitle: 'Ups!',
+          errMsg: 'A apărut o eroare. Încercați din nou sau scrieți-ne direct pe email.'
+        };
+
+    var V = isEnglish
+      ? {
+          required: 'This field is required.',
+          select: 'Please select a practice area.',
+          message: 'Please briefly describe your situation.',
+          tooShort: 'Please use at least {min} characters.',
+          email: 'Please enter a valid email address.',
+          consent: 'You must agree before sending the request.',
+          either: 'Please provide at least an email or a phone number.'
+        }
+      : {
+          required: 'Acest câmp este obligatoriu.',
+          select: 'Vă rugăm să selectați un domeniu.',
+          message: 'Vă rugăm să descrieți pe scurt situația.',
+          tooShort: 'Textul trebuie să aibă cel puțin {min} caractere.',
+          email: 'Introduceți o adresă de email validă.',
+          consent: 'Trebuie să bifați acordul pentru a trimite cererea.',
+          either: 'Completați cel puțin emailul sau telefonul.'
+        };
+
+    // At least one of email / phone must be filled
+    var email = form.querySelector('[name="email"]');
+    var phone = form.querySelector('[name="phone"]');
+    function syncEitherOr() {
+      if (!email || !phone) return;
+      var filled = email.value.trim() || phone.value.trim();
+      email.setCustomValidity(filled ? '' : V.either);
+    }
+    if (email && phone) {
+      email.addEventListener('input', syncEitherOr);
+      phone.addEventListener('input', syncEitherOr);
+      syncEitherOr();
+    }
+
+    // Localized message per failed constraint
+    function messageFor(el) {
+      var v = el.validity;
+      if (v.valueMissing) {
+        if (el.type === 'checkbox') return V.consent;
+        if (el.tagName === 'SELECT') return V.select;
+        if (el.name === 'message') return V.message;
+        return V.required;
+      }
+      if (v.tooShort) return V.tooShort.replace('{min}', el.minLength);
+      if (v.typeMismatch) return V.email;
+      return '';
+    }
+
+    // Replace the browser's default validation bubbles with our text
+    form.addEventListener('invalid', function (e) {
+      var el = e.target;
+      if (el === email && el.validity.customError) return; // keep the either-or message
+      el.setCustomValidity(messageFor(el));
+    }, true);
+
+    // Clear the message as the user corrects each field
+    Array.prototype.forEach.call(form.querySelectorAll('input, select, textarea'), function (el) {
+      var ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
+      el.addEventListener(ev, function () {
+        if (el === email || el === phone) { syncEitherOr(); return; }
+        el.setCustomValidity('');
+      });
+    });
+
+    var btn = form.querySelector('button[type="submit"]');
+    var btnHtml = btn ? btn.innerHTML : '';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (btn) { btn.disabled = true; btn.textContent = t.sending; }
+
+      fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form)
+      })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (res) {
+          if (res.ok && res.d && res.d.success) {
+            form.reset();
+            showToast('success', t.okTitle, t.okMsg);
+          } else {
+            showToast('error', t.errTitle, (res.d && res.d.message) || t.errMsg);
+          }
+        })
+        .catch(function () {
+          showToast('error', t.errTitle, t.errMsg);
+        })
+        .finally(function () {
+          if (btn) { btn.disabled = false; btn.innerHTML = btnHtml; }
+        });
+    });
+  }
+
+  initContactForm();
 })();

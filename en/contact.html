@@ -110,7 +110,7 @@
 
             <div class="contact-block">
               <div class="label">WhatsApp</div>
-              <a href="https://wa.me/40723176164?text=Hello%2C%20I%27d%20like%20to%20schedule%20a%20consultation."
+              <a href="https://wa.me/40785117334?text=Hello%2C%20I%27d%20like%20to%20schedule%20a%20consultation."
                  class="value contact-whatsapp"
                  target="_blank"
                  rel="noopener">
@@ -153,8 +153,11 @@
             </div>
           </div>
 
-          <!-- Form: configure action with your Formspree URL (see README) -->
-          <form class="form-card" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+          <!-- Web3Forms — replace the access_key value with your real key from web3forms.com -->
+          <form class="form-card" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="432f5c0a-cedd-4cec-9c40-104bd366f167" />
+            <input type="hidden" name="subject" value="Consultation request — Av. Irina-Maria Peter website" />
+            <input type="hidden" name="from_name" value="Av. Irina-Maria Peter website" />
             <h2 style="margin-bottom:0.5rem">Request a consultation</h2>
             <p style="color:var(--color-ink-muted); margin-bottom:1.75rem; font-size:0.9375rem">
               Fill in the fields below. All information is confidential.
@@ -173,12 +176,12 @@
 
             <div class="form-field">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" required autocomplete="email" />
+              <input type="email" id="email" name="email" autocomplete="email" />
             </div>
 
             <div class="form-field">
               <label for="area">Practice area</label>
-              <select id="area" name="practice_area">
+              <select id="area" name="practice_area" required>
                 <option value="">— Select —</option>
                 <option>European Law (ECtHR)</option>
                 <option>Civil Law</option>
@@ -193,20 +196,21 @@
 
             <div class="form-field">
               <label for="message">Briefly describe your situation</label>
-              <textarea id="message" name="message" rows="5" required placeholder="A few details help me prepare for the consultation..."></textarea>
+              <textarea id="message" name="message" rows="5" required minlength="15" placeholder="A few details help me prepare for the consultation..."></textarea>
             </div>
 
-            <!-- Honeypot for spam -->
-            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+            <!-- Honeypot anti-spam (Web3Forms) -->
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+
+            <label class="form-consent">
+              <input type="checkbox" name="consent" required />
+              <span>I agree to the processing of my personal data for the purpose of responding to my request.</span>
+            </label>
 
             <button type="submit" class="btn btn-primary btn-arrow" style="width:100%; justify-content:center">
               Send request
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-
-            <p class="form-note">
-              By submitting this form you consent to the processing of your data for the purpose of responding to your request.
-            </p>
           </form>
 
         </div>
