@@ -1086,7 +1086,17 @@ p { max-width: 65ch; }
   .two-col, .two-col-narrow, .about-grid, .contact-grid {
     grid-template-columns: 1fr;
   }
-  .about-image { position: static; max-width: 320px; margin-inline: auto; }
+  .about-image {
+    position: static;
+    max-width: 320px;
+    margin-inline: auto;
+    aspect-ratio: auto;
+  }
+  .about-image::before { display: none; }
+  .about-image img {
+    position: static;
+    height: auto;
+  }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
