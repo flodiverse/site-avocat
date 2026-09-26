@@ -1342,3 +1342,27 @@ p { max-width: 65ch; }
   width: auto;
   accent-color: var(--color-primary);
 }
+
+/* Legal / policy page content */
+.legal-content { max-width: 72ch; }
+.legal-content > * + * { margin-top: var(--space-md); }
+.legal-content h2 {
+  font-size: var(--step-fluid-4);
+  margin-top: var(--space-xl);
+}
+.legal-content p,
+.legal-content li { color: var(--color-ink-muted); }
+.legal-content strong { color: var(--color-ink); font-weight: 600; }
+.legal-content ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.legal-content li + li { margin-top: 0.5rem; }
+.legal-content a,
+.form-consent a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.legal-content a:hover,
+.form-consent a:hover { color: var(--color-accent); }
